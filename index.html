@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweets Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #1da1f2;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #1da1f2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0c85d0;
+        }
+        #login-button {
+            background-color: #00acee;
+            margin-bottom: 20px;
+        }
+        #login-button:hover {
+            background-color: #0090c9;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>AI Tweet Generator</h1>
+
+    <button id="login-button">Login with Twitter</button>
+    
+    <div class="input-group">
+        <label for="prompt">Tweet Prompt:</label>
+        <input type="text" id="prompt" placeholder="Enter your tweet prompt here">
+    </div>
+    
+    <div class="input-group">
+        <label for="schedule">Schedule:</label>
+        <select id="schedule">
+            <option value="once">Only once</option>
+            <option value="daily">Every day at 12pm</option>
+            <option value="3hours">Every 3 hours</option>
+            <option value="1hour">Every 1 hour</option>
+            <option value="45min">Every 45 minutes</option>
+        </select>
+    </div>
+    
+    <button id="generate-button">Generate Tweet</button>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script type="module">
+        const firebaseConfig = {
+            apiKey: process.env.apiKey,
+            authDomain: process.env.authDomain,
+            projectId: process.env.projectId,
+            storageBucket: process.env.storageBucket,
+            messagingSenderId: process.env.messagingSenderId,
+            appId: process.env.appId,
+            measurementId: process.env.measurementId
+        };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
+
+
+    <script type="module" src="index.js"></script>
+</body>
+</html>
