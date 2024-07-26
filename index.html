@@ -3,102 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tweets Generator</title>
+    <title>AI Tweet Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* General Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
             line-height: 1.6;
             color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #e0f7fa, #c5cae9); /* Gradient background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
         }
+
         h1 {
             color: #1da1f2;
-            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
         }
+
+        /* Input and Button Styling */
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card-like shadow */
+        }
+
         .input-group {
             margin-bottom: 20px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         input[type="text"], select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             box-sizing: border-box;
         }
+
         button {
             background-color: #1da1f2;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition */
         }
+
         button:hover {
             background-color: #0c85d0;
         }
+
+        /* Twitter Login Button */
         #login-button {
             background-color: #00acee;
             margin-bottom: 20px;
         }
+
         #login-button:hover {
             background-color: #0090c9;
+        }
+
+        /* Icon Styling */
+        .fa-twitter {
+            margin-right: 5px;
+        }
+
+
+        /* Tweet Display Box */
+        #tweet-container {
+            background-color: #f5f8fa; /* Light Twitter blue background */
+            border: 1px solid #e1e8ed; /* Subtle border */
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px; /* Rounded corners */
+            width: 100%;
+            box-sizing: border-box; /* Include padding in width calculation */
+            max-width: 500px; /* Limit width for better readability */
+        }
+
+        #tweet-text {
+            font-size: 18px;
+            line-height: 1.4;
+            white-space: pre-wrap; /* Preserve line breaks and wrapping */
         }
     </style>
 </head>
 <body>
-    
-    <h1>AI Tweet Generator</h1>
+    <div class="container">
+        <h1>AI Tweet Generator</h1>
 
-    <button id="login-button">Login with Twitter</button>
-    
-    <div class="input-group">
-        <label for="prompt">Tweet Prompt:</label>
-        <input type="text" id="prompt" placeholder="Enter your tweet prompt here">
+        <button id="login-button"><i class="fab fa-twitter"></i>Login with Twitter</button>
+
+        <div class="input-group">
+            <label for="prompt">Tweet Prompt:</label>
+            <input type="text" id="prompt" placeholder="Enter your tweet prompt here">
+        </div>
+
+        <div class="input-group">
+            <label for="schedule">Schedule:</label>
+            <select id="schedule">
+                <option value="once">Only once</option>
+                <option value="daily">Every day at 12pm</option>
+                <option value="3hours">Every 3 hours</option>
+                <option value="1hour">Every 1 hour</option>
+                <option value="45min">Every 45 minutes</option>
+            </select>
+        </div>
+
+        <button id="generate-button">Generate Tweet</button>
+
+        <div id="tweet-container">
+            <p id="tweet-text"></p> 
+        </div>
     </div>
-    
-    <div class="input-group">
-        <label for="schedule">Schedule:</label>
-        <select id="schedule">
-            <option value="once">Only once</option>
-            <option value="daily">Every day at 12pm</option>
-            <option value="3hours">Every 3 hours</option>
-            <option value="1hour">Every 1 hour</option>
-            <option value="45min">Every 45 minutes</option>
-        </select>
-    </div>
-    
-    <button id="generate-button">Generate Tweet</button>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-    <script type="module">
-        const firebaseConfig = {
-            apiKey: process.env.apiKey,
-            authDomain: process.env.authDomain,
-            projectId: process.env.projectId,
-            storageBucket: process.env.storageBucket,
-            messagingSenderId: process.env.messagingSenderId,
-            appId: process.env.appId,
-            measurementId: process.env.measurementId
-        };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    </script>
-
-
-    <script type="module" src="index.js"></script>
+    <script type="module" src="index.js"></script> 
 </body>
 </html>
