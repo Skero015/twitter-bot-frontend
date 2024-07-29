@@ -99,6 +99,23 @@
             line-height: 1.4;
             white-space: pre-wrap; /* Preserve line breaks and wrapping */
         }
+
+        #send-button {
+            background-color: #1da1f2;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth transition */
+            margin-top: 10px; /* Add some spacing */
+            display: none; /* Hide initially */
+        }
+
+        #send-button:hover {
+            background-color: #0c85d0;
+        }
     </style>
 </head>
 <body>
@@ -116,18 +133,16 @@
             <label for="schedule">Schedule:</label>
             <select id="schedule">
                 <option value="once">Only once</option>
-                <option value="daily">Every day at 12pm</option>
-                <option value="3hours">Every 3 hours</option>
-                <option value="1hour">Every 1 hour</option>
-                <option value="45min">Every 45 minutes</option>
             </select>
         </div>
 
         <button id="generate-button">Generate Tweet</button>
 
-        <div id="tweet-container">
+        <div id="tweet-container"  contenteditable="true">
             <p id="tweet-text"></p> 
         </div>
+
+        <button id="send-button">Release Tweet</button>
     </div>
 
     <script type="module" src="index.js"></script> 
