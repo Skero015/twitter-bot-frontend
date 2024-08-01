@@ -134,17 +134,27 @@ document.getElementById('generate-button').addEventListener('click', async funct
   const prompt = document.getElementById('prompt').value;
   const schedule = document.getElementById('schedule').value;
   const tweetTextElement = document.getElementById('tweet-text');
+  const sendButton = document.getElementById('send-button');
 
   if (prompt && schedule) {
       try {
-          const result = await generateAITweetFunction({ prompt });
+        //Generate 3 tweets if schedule is not 'once'
+          const result = await generateAITweetFunction({ prompt: prompt, numberOfTweets: (schedule === 'once') ? 1 : 3});
           console.log('AI Tweet Generation function success:', result.data);
+          
+          // Clear previous tweets
+          tweetTextElement.innerHTML = '';
 
-          // Update the tweet text box
-          tweetTextElement.textContent = result.data.tweet; // Assuming the tweet is in result.data
+          // Create and append p tags for each generated tweet
+          result.data.tweets.forEach(tweet => { // Assuming result.data.tweets is an array of tweets
+              const p = document.createElement('p');
+              p.textContent = tweet;
+              tweetTextElement.appendChild(p);
+          });
 
           // Show the send button after tweet generation
-          document.getElementById('send-button').style.display = 'block';
+          sendButton.style.display = 'block';
+          sendButton.textContent = (result.data.tweets.length > 1) ? `Send Tweets` : 'Send Tweet';
       } catch (error) {
           console.error('Error calling tweet function:', error);
           tweetTextElement.textContent = 'Error generating tweet. Please try again.';

@@ -94,10 +94,12 @@
             max-width: 500px; /* Limit width for better readability */
         }
 
-        #tweet-text {
-            font-size: 18px;
-            line-height: 1.4;
-            white-space: pre-wrap; /* Preserve line breaks and wrapping */
+        #tweet-text p {
+            display: inline-block; 
+            margin: 5px;             /* Add some spacing between tweets */
+            padding: 10px;           /* Add padding to each tweet */
+            border: 1px solid #ccc;  /* Add a subtle border */
+            border-radius: 5px;      /* Round the corners */
         }
 
         #send-button {
@@ -133,13 +135,17 @@
             <label for="schedule">Schedule:</label>
             <select id="schedule">
                 <option value="once">Only once</option>
+                <option value="daily">Every day at 12pm</option>
+                <option value="3hours">Every 3 hours</option>
+                <option value="1hour">Every 1 hour</option>
+                <option value="45min">Every 45 minutes</option>
             </select>
         </div>
 
         <button id="generate-button">Generate Tweet</button>
 
         <div id="tweet-container"  contenteditable="true">
-            <p id="tweet-text"></p> 
+            <div id="tweet-text"></div> 
         </div>
 
         <button id="send-button">Release Tweet</button>
