@@ -27,7 +27,7 @@ const functions = getFunctions(app);
 const authFunction = httpsCallable(functions, 'auth');
 const callbackFunction = httpsCallable(functions, 'callback');
 const tweetFunction = httpsCallable(functions, 'tweet');
-const scheduledTweetFunction = httpsCallable(functions, 'scheduledTweet');
+const triggerScheduledTweetFunction = httpsCallable(functions, 'triggerScheduledTweet');
 const updateScheduleFunction = httpsCallable(functions, 'updateSchedule');
 const generateAITweetFunction = httpsCallable(functions, 'generateAITweet');
 
@@ -55,9 +55,7 @@ function handleTwitterCallback() {
   const urlParams = new URLSearchParams(window.location.search);
   const state = urlParams.get('state');
   const code = urlParams.get('code');
-  console.log(state);
-  console.log(code);
-  
+
   const data = {state: state, code: code };
 
   callbackFunction(data)
@@ -74,16 +72,16 @@ function callTweetFunction(schedule, tweet) {
 
   if(schedule !== 'once'){
     //run tweet generation scheduled function
-    scheduledTweetFunction({})
+    triggerScheduledTweetFunction({})
     .then(result => {
       console.log('Scheduled Tweet function success:', result.data);
       // Handle the response or perform further actions
     })
     .catch(error => {
-      console.error('Error calling tweet function:', error);
+      console.error('Error calling tweet scheduling function:', error);
     });
   }else{
-    //run regular tweet generation scheduled function
+    //run regular tweet function
     tweetFunction({tweet: tweet})
     .then(result => {
       console.log('Tweet function success:', result.data);
@@ -166,10 +164,13 @@ document.getElementById('generate-button').addEventListener('click', async funct
 
 // Event listener for the send tweet button
 document.getElementById('send-button').addEventListener('click', function() {
-  const tweet = document.getElementById('tweet-text').textContent.trim();
-  
-  if (tweet.length > 0) {
-    callTweetFunction('once',tweet);
+  const schedule = document.getElementById('schedule').value;
+  const tweetTextElement = document.getElementById('tweet-text');
+  const firstTweet = tweetTextElement.firstChild?.textContent?.trim(); // Get the first tweet element
+
+  //if tweet element exists and tweet has been generate
+  if (firstTweet && firstTweet.length > 0) {
+    callTweetFunction(schedule,firstTweet);
   } else {
     alert('Please ensure your tweet has been generated first');
   }
